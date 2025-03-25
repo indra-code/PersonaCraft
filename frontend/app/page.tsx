@@ -61,7 +61,7 @@ export default function LandingPage() {
               href="/"
               className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
             >
-              AI Confidence Booster
+              PersonaCraft
             </Link>
 
             {/* Desktop Navigation */}
@@ -389,7 +389,7 @@ export default function LandingPage() {
                 href="/"
                 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
               >
-                AI Confidence Booster
+                PersonaCraft
               </Link>
               <p className="mt-4 text-blue-100/60 text-sm">
                 Empowering individuals to communicate with confidence through
@@ -502,8 +502,7 @@ export default function LandingPage() {
           </div>
           <div className="border-t border-slate-800 mt-12 pt-8 text-center">
             <p className="text-blue-100/60 text-sm">
-              © {new Date().getFullYear()} AI Confidence Booster. All rights
-              reserved.
+              © {new Date().getFullYear()} PersonaCraft. All rights reserved.
             </p>
           </div>
         </div>

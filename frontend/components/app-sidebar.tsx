@@ -1,5 +1,5 @@
 "use client";
-import { Mic, Brain, BrainCircuit } from "lucide-react";
+import { Mic, Brain, Book } from "lucide-react";
 
 import {
   Sidebar,
@@ -27,9 +27,9 @@ const items = [
     icon: Brain,
   },
   {
-    title: "How to Improve",
+    title: "Training Center",
     url: "/dashboard/train",
-    icon: BrainCircuit,
+    icon: Book,
   },
 ];
 
@@ -40,7 +40,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-lg font-bold mb-5">
-            <Link href="/">AI Confidence Booster</Link>
+            <Link href="/">PersonaCraft</Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
