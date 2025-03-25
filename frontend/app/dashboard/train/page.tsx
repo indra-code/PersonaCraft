@@ -9,8 +9,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import SpeechTraining from "./speech-component";
-import GestureTraining from "./gesture-component";
+import SpeechTraining from "@/app/dashboard/train/speech-component";
+import GestureTraining from "@/app/dashboard/train/gesture-component";
 
 const Training = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -323,9 +323,9 @@ const Training = () => {
             <div className="bg-gray-900 rounded-lg shadow-xl p-6 border border-gray-800">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
                 Speech Training
-            </h2>
-            <SpeechTraining />
-          </div>
+              </h2>
+              <SpeechTraining />
+            </div>
           </>
         )}
 

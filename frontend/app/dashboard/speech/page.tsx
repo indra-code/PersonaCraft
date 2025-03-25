@@ -31,6 +31,9 @@ const ScreenRecorder = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const mediaParts = useRef([]);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const videoPreviewRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+
   const startRecording = useCallback(async () => {
     try {
       // Clear the mediaParts array before starting a new recording
@@ -40,6 +43,18 @@ const ScreenRecorder = () => {
         video: true,
         audio: true,
       });
+
+      // Store stream reference to stop tracks later
+      streamRef.current = stream;
+
+      // Display webcam preview
+      if (videoPreviewRef.current) {
+        videoPreviewRef.current.srcObject = stream;
+        videoPreviewRef.current
+          .play()
+          .catch((err) => console.error("Error playing preview:", err));
+      }
+
       const recorder = new MediaRecorder(stream, { mimeType: "video/mp4" });
       setMediaRecorder(recorder);
       recorder.ondataavailable = (event) => {
@@ -51,6 +66,12 @@ const ScreenRecorder = () => {
         const blob = new Blob(mediaParts.current, { type: "video/mp4" });
         const url = URL.createObjectURL(blob);
         setMediaUrl(url);
+
+        // Stop all tracks when recording is complete
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current = null;
+        }
       };
       recorder.start();
       setRecording(true);
@@ -84,7 +105,7 @@ const ScreenRecorder = () => {
       formData.append("video", file);
 
       // Send to backend
-      const analysisResponse = await fetch("http://127.0.0.1:5000/upload", {
+      const analysisResponse = await fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
       });
@@ -182,10 +203,13 @@ const ScreenRecorder = () => {
           </div>
 
           <div className="mb-6 rounded-lg overflow-hidden bg-gray-800 border border-gray-700">
-            {recording || (!recording && !mediaUrl) ? (
-              <div className="w-full aspect-video flex items-center justify-center bg-gray-800 text-gray-500">
-                <p>No recording available</p>
-              </div>
+            {recording ? (
+              <video
+                ref={videoPreviewRef}
+                className="w-full h-auto aspect-video"
+                muted
+                playsInline
+              />
             ) : mediaUrl ? (
               <video
                 src={mediaUrl}
